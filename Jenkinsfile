@@ -7,9 +7,9 @@ pipeline {
             steps{
                
                 //Fisrt, drop the directory if exists
-                sh 'rm -rf /home/mcherlo/docker/jenkins/tomcat-web/*'
+                sh 'rm -rf /usr/local/tomcat/webapps*'
                 //Create the directory
-                sh 'mkdir /home/mcherlo/docker/jenkins/tomcat-web'
+                sh 'mkdir /usr/local/tomcat/webapps'
                 
             }
         }
