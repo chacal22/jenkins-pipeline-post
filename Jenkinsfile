@@ -7,7 +7,7 @@ pipeline {
             steps{
                
                 //Fisrt, drop the directory if exists
-                sh 'rm -rf /usr/local/tomcat/webapps*'
+                sh 'rm -rf /usr/local/tomcat/webapps/*'
                 //Create the directory
                 sh 'mkdir /usr/local/tomcat/webapps'
                 
