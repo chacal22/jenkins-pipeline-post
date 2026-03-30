@@ -2,6 +2,7 @@
       agent any
 
       environment {
+          JENKINS_WEB_ROOT = '/opt/tomcat-web'
           HOST_WEB_ROOT = '/home/mcherlo/docker/jenkins/tomcat-web'
           CONTAINER_NAME = 'tomcat1'
           APP_NAME = 'shopping'
@@ -11,8 +12,8 @@
           stage('Prepare directory for the web application') {
               steps {
                   echo 'Preparing deployment directory...'
-                  sh 'mkdir -p ${HOST_WEB_ROOT}/${APP_NAME}'
-                  sh 'find ${HOST_WEB_ROOT}/${APP_NAME} -mindepth 1 -maxdepth 1 -exec rm -rf {} +'
+                  sh 'mkdir -p ${JENKINS_WEB_ROOT}/${APP_NAME}'
+                  sh 'find ${JENKINS_WEB_ROOT}/${APP_NAME} -mindepth 1 -maxdepth 1 -exec rm -rf {} +'
               }
           }
 
@@ -25,10 +26,16 @@
 
           stage('Copy the web application to the container directory') {
               steps {
+                  echo 'Debugging paths...'
+                  sh 'pwd'
+                  sh 'ls -la'
+                  sh 'ls -la shopping || true'
+                  sh 'ls -la ${JENKINS_WEB_ROOT} || true'
+
                   echo 'Copying web application...'
                   sh 'test -d shopping'
-                  sh 'cp -a shopping/. ${HOST_WEB_ROOT}/${APP_NAME}/'
-                  sh 'ls -la ${HOST_WEB_ROOT}/${APP_NAME}'
+                  sh 'cp -a shopping/. ${JENKINS_WEB_ROOT}/${APP_NAME}/'
+                  sh 'ls -la ${JENKINS_WEB_ROOT}/${APP_NAME}'
               }
           }
 
